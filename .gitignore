@@ -1,0 +1,9 @@
+__py_cache__
+README.rst
+dist
+build
+VERSION
+.tox
+*.egg-info
+*.swp
+

@@ -1,0 +1,41 @@
+language: python
+
+python:
+- '2.7'
+# - '3.3'
+# - '3.4'
+# - '3.5'
+# - pypy
+
+script: make test dist
+
+addons:
+  apt_packages:
+    - pandoc
+
+deploy:
+# TEST 
+- provider: pypi
+  distributions: sdist bdist_wheel
+  server: https://testpypi.python.org/pypi
+  user: jonas
+  password:
+    # create with: travis encrypt '<password>'
+    secure: "fq8DSSfazTcQ5Ycuo9040Xnsj79gZwpu0/POvUMgjemrvoFeHpDH1BT7j+BkynszYP789GsvlUBeIHO+2uNDzT1cinJozuNXTZn3xHURDAd6vfs1LBHcVA2jmSt4xvvvc3AgHfB0JDXWQYfUjMCbixFEG+NFfZ5yxPvgHaKFO8scXvnHA8T8HsMLJH7z/CckOQybPXtQnBgiI+J+9SRq1ejCSDFG39va40XKu6PSOIZxXu3QzzF74CLxbZUGGP91TVGOpMKdFN2mwAls+QgGtsdIYWu0k6ETFR8BcZy5QqdKoZuFwEgBBxFTZ0se3FxeYIkFo3E9PPFPrlTn70SoHwBLCar5FJxfdfk2ID5GhzEUzDsaBqAvtWskvzfQtToD+2RWR5R4+6Hloq2QmjN/nVIYCXf+KAYmPqsk9TNNYX5TAw1Q7MoKLermdxhtarIIJRnS9sze8LWcbNRhw8gXDn9jlL873H/BOYg/mcOnEclYZqqdqtXllDIhoLlhZDGfYkEhpH3oxp9gREN1uXP3OtbD6h50BU78ifAVwbM3Zue4h/OV1xYKONrLn7oLfjA1A6jo1fiuS5jqlK2MuuZ0eF4gvxK0D+jg8y6kyr5JnzqdssYwYbeod73YhRzRsmfwBGF/sqrisScSJtS7Ab+IK5askQ1YkSPptedzp+Rfmuc="
+  on:
+    branch: master
+    tags: true
+    condition: $TRAVIS_PYTHON_VERSION = "2.7"
+  skip_upload_docs: True
+
+# RELEASE
+#- provider: pypi
+#  distributions: sdist bdist_wheel
+#  user: jonast
+#  password:
+#    secure: "rCYuwv7FnZDrSDqaA+Q1fds6lg5WAZFsTLpa+bNw6y7QuszJ0Vef1cz7L8oa3lY0iCYlzIM2gqL32E644peH/nf3fk6exerkWOy+twCK8BM4FINtNgBziXH8DCa/hxlupZC2/bzDT7v0qSqrp/F4c+ixVxdqEerXRm3xSMP9jroZCQfHd+YpwMJN01owtvR8uXPwQDOeshnyLQTvdutMjEUbP4atWmX3zP8zT9l7qNDkO8Jb+60qXCMBSXkUO3iFsqlvkeI0Bt9PQHYf0TSMyGdtOU96Ew5qZZ2bYORrRmmrBBH2kSjOiHWov8lVfuX+9Btz2hwmnUDZuyFo3L0KudR47/NaUN8I6W7xnUVYgu2SiI1q/luHydGjJUWnAuojdAoorkgBXz9/YXIdQF1+42pXxKgSzy42sa/I/t+IyraMm204bBW1OvT58kVJ6hi5Hxl+Vyh5RasEoer6/y3ZZUMsybJrh2ZMppYvCTHatTsmUzptBx07wOeHuElAI6ZY+UcSsUQSuOj9rDKGlN0vTtPaGoe8pU++olg6iQ+sXFbGq7c6OmfZ1y/MO3w79VeCI4RwFHd2PvvphvK81ycByv3YjLOgFddFDR4Xn1Be0387BY2PImIyn6GMqaxG9L1otuW1SLOxluaj6EVMXmt1ZE7VTz3tBTBkVSMMdA4m1/A="
+#  on:
+#    branch: master
+#    tags: true
+#    condition: $TRAVIS_PYTHON_VERSION = "2.7"
+#  skip_upload_docs: True
